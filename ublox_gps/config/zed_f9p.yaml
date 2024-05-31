@@ -1,23 +1,30 @@
-device: /dev/ttyACM0
+device: /dev/ttyF9P
 frame_id: gps
 uart1:
-  baudrate: 115200
-config_on_startup: false
+  baudrate: 460800
+usb:
+  baudrate: 460800
+  in: 1
+  out: 1
+config_on_startup: true
 rate: 1 # in Hz
 nav_rate: 1 # [# of measurement cycles], recommended 1 Hz, may
 tmode3: 0
 gnss:
   glonass: true # Supported by C94-M8P
-  beidou: true # Supported by C94-M8P
+  beidou: false # Supported by C94-M8P
   galileo: true
   qzss: false # Supported by C94-M8P
+debug: 4
+inf:
+  all: true
 
 publish:
-  all: true
+  #all: true
   # rxm:
   #   raw: true
-  # nav:
-  #   status: true
-  #   pvt: true
+   nav:
+     all: true
+   nmea: true
   #   posecef: false
   #   hpposllh: true

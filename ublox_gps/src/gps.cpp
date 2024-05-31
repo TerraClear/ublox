@@ -116,6 +116,15 @@ void Gps::initializeSerial(std::string port, unsigned int baudrate,
   // open serial port
   try {
     serial->open(port);
+      // Wait for at least one char on serial port before returning from read.
+  // Sadly Boost doesn't provide any way to set this.
+  int fd = serial_port->native_handle();
+  struct termios tio;
+  tcgetattr(fd, &tio);
+  tio.c_cc[VTIME] = 0;
+  tio.c_cc[VMIN] = 1;
+  tcflush(fd, TCIFLUSH);
+  tcsetattr(fd, TCSANOW, &tio);
   } catch (std::runtime_error& e) {
     throw std::runtime_error("U-Blox: Could not open serial port :"
                              + port + " " + e.what());
