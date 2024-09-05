@@ -118,7 +118,7 @@ void Gps::initializeSerial(std::string port, unsigned int baudrate,
     serial->open(port);
       // Wait for at least one char on serial port before returning from read.
   // Sadly Boost doesn't provide any way to set this.
-  int fd = serial_port->native_handle();
+  int fd = serial->native_handle();
   struct termios tio;
   tcgetattr(fd, &tio);
   tio.c_cc[VTIME] = 0;
